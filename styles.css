@@ -1,0 +1,479 @@
+/* ============================================================
+   Reset y base
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background-color: #f0f2f5;
+  color: #1a1a2e;
+  min-height: 100vh;
+}
+
+/* ============================================================
+   Contenedor principal
+   ============================================================ */
+#app {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* ============================================================
+   Header
+   ============================================================ */
+header {
+  margin-bottom: 2rem;
+}
+
+header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+.subtitle {
+  margin-top: 0.25rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* ============================================================
+   Tarjetas de resumen
+   ============================================================ */
+.summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.25rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.card__label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #888;
+}
+
+.card__amount {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* Colores por tipo de tarjeta */
+.card--balance  { border-top: 4px solid #4361ee; }
+.card--income   { border-top: 4px solid #2dc653; }
+.card--expense  { border-top: 4px solid #e63946; }
+
+.card--balance  .card__amount { color: #4361ee; }
+.card--income   .card__amount { color: #2dc653; }
+.card--expense  .card__amount { color: #e63946; }
+
+/* Balance negativo — se aplica vía JS en fases posteriores */
+.card--balance.negative .card__amount { color: #e63946; }
+
+/* ============================================================
+   Secciones
+   ============================================================ */
+.form-section,
+.movements-section {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  margin-bottom: 1.5rem;
+}
+
+.form-section h2,
+.movements-section h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  color: #1a1a2e;
+}
+
+/* ============================================================
+   Formulario
+   ============================================================ */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.optional {
+  font-weight: 400;
+  color: #999;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: #1a1a2e;
+  background: #fff;
+  transition: border-color 0.15s;
+  appearance: none;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #4361ee;
+}
+
+/* Tipo: botones radio estilizados */
+.radio-group {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+}
+
+.radio-option input[type="radio"] {
+  accent-color: #4361ee;
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+}
+
+.radio-option__label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.3rem 0.75rem;
+  border-radius: 20px;
+  border: 1.5px solid #ddd;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.radio-option input:checked + .radio-option__label--income {
+  background: #e8f8ed;
+  border-color: #2dc653;
+  color: #1a7a36;
+}
+
+.radio-option input:checked + .radio-option__label--expense {
+  background: #fde8ea;
+  border-color: #e63946;
+  color: #a0202b;
+}
+
+/* Error de validación */
+.form-error {
+  font-size: 0.85rem;
+  color: #e63946;
+  margin-bottom: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  background: #fde8ea;
+  border-radius: 6px;
+}
+
+.hidden {
+  display: none;
+}
+
+/* ============================================================
+   Botones
+   ============================================================ */
+.btn {
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  transition: opacity 0.15s, transform 0.1s;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn--filter {
+  padding: 0.3rem 0.85rem;
+  font-size: 0.82rem;
+  background: #f0f2f5;
+  color: #555;
+  border: 1.5px solid #ddd;
+}
+
+.btn--filter:hover {
+  background: #e4e7ed;
+}
+
+.btn--filter.active {
+  background: #4361ee;
+  color: #fff;
+  border-color: #4361ee;
+}
+
+.btn--primary {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 0.95rem;
+  background: #4361ee;
+  color: #fff;
+  margin-top: 0.25rem;
+}
+
+.btn--primary:hover {
+  opacity: 0.9;
+}
+
+.btn--delete {
+  background: none;
+  color: #bbb;
+  font-size: 0.8rem;
+  padding: 0.25rem 0.4rem;
+  border-radius: 4px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.btn--delete:hover {
+  background: #fde8ea;
+  color: #e63946;
+}
+
+/* ============================================================
+   Lista de movimientos
+   ============================================================ */
+.movements-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.movements-header h2 {
+  margin-bottom: 0;
+}
+
+.movements-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.movement {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  border-left: 4px solid transparent;
+  background: #fafafa;
+  gap: 1rem;
+}
+
+.movement--income  { border-left-color: #2dc653; }
+.movement--expense { border-left-color: #e63946; }
+
+.movement__info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.movement__category {
+  font-size: 0.9rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.movement__date {
+  font-size: 0.78rem;
+  color: #888;
+}
+
+.movement__description {
+  font-size: 0.82rem;
+  color: #666;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.movement__right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.movement__amount {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.movement--income  .movement__amount { color: #2dc653; }
+.movement--expense .movement__amount { color: #e63946; }
+
+/* Estado vacío */
+.empty-state {
+  text-align: center;
+  color: #aaa;
+  font-size: 0.9rem;
+  padding: 2rem 0;
+}
+
+/* ============================================================
+   Gráfica
+   ============================================================ */
+.chart-section {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  margin-bottom: 1.5rem;
+}
+
+.chart-section h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #1a1a2e;
+}
+
+#chart {
+  display: block;
+  width: 100%;
+  height: 180px;
+}
+
+/* ============================================================
+   Formulario — acciones y cancelar
+   ============================================================ */
+.form-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.form-actions .btn--primary {
+  flex: 1;
+  margin-top: 0;
+}
+
+.btn--cancel {
+  padding: 0.75rem 1.25rem;
+  font-size: 0.95rem;
+  background: #f0f2f5;
+  color: #555;
+  border: 1.5px solid #ddd;
+  white-space: nowrap;
+}
+
+.btn--cancel:hover {
+  background: #e4e7ed;
+}
+
+/* ============================================================
+   Encabezados de mes
+   ============================================================ */
+.month-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem 0.25rem;
+  margin-top: 0.5rem;
+  border-bottom: 1.5px solid #eee;
+}
+
+.month-group:first-child {
+  margin-top: 0;
+}
+
+.month-group__label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #888;
+}
+
+.month-group__totals {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.month-group__income  { color: #2dc653; }
+.month-group__expense { color: #e63946; }
+
+/* ============================================================
+   Botón editar y fila en edición
+   ============================================================ */
+.btn--edit {
+  background: none;
+  color: #bbb;
+  font-size: 0.95rem;
+  padding: 0.25rem 0.4rem;
+  border-radius: 4px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.btn--edit:hover {
+  background: #eef0fb;
+  color: #4361ee;
+}
+
+.movement--editing {
+  outline: 2px solid #4361ee;
+  outline-offset: 1px;
+}
+
+/* ============================================================
+   Responsive — pantallas pequeñas
+   ============================================================ */
+@media (max-width: 480px) {
+  .summary {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
